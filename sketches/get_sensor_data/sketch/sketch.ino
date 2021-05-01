@@ -1,7 +1,7 @@
-#include <Arduino_HTS221.h>
-#include <Arduino_LPS22HB.h>
-#include <Arduino_APDS9960.h>
-#include <Arduino_LSM9DS1.h>
+#include <Arduino_HTS221.h> // Temperature sensor
+#include <Arduino_LPS22HB.h> // Air pressure sensor
+#include <Arduino_APDS9960.h> // Color, light, and proximity sensor
+#include <Arduino_LSM9DS1.h> // Accelerometer
 
 void setup() {
   Serial.begin(9600);
@@ -18,13 +18,13 @@ void setup() {
   }
 
   if (!APDS.begin()) {
-      Serial.println("Failed to start the APDS9960 sensor.");
-      while (1);
+    Serial.println("Failed to start the APDS9960 sensor.");
+    while (1);
   }
 
   if (!IMU.begin()) {
-      Serial.println("Failed to start the LSM9DS sensor.");
-      while (1);
+    Serial.println("Failed to start the LSM9DS sensor.");
+    while (1);
   }
 
 }
@@ -36,7 +36,7 @@ void loop() {
   float pressure = BARO.readPressure(); // In kPa
 
   int r, g, b, a;
-  float brightness = APDS.readColor(r, g, b, a);
+  APDS.readColor(r, g, b, a);
 
   float x, y, z;
   IMU.readAcceleration(x, y, z);
